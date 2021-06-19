@@ -1,6 +1,6 @@
 from django.db import models
 
-from sage_encrypt.mixins.cast import INT, BIGINT, DATE, TIMESTAMP, BOOL, DOUBLE, TIME
+from sage_encrypt.mixins.cast import INT, BIGINT, DATE, TIMESTAMP, BOOL, DOUBLE, TIME, NUMERIC
 from sage_encrypt.mixins.encrypt import EncryptSymmetricMixin
 from sage_encrypt.mixins.query import SYM_ENCRYPT_SQL_WITH_NULLIF
 
@@ -50,3 +50,6 @@ class EncryptedFloatField(EncryptSymmetricMixin, models.FloatField):
 class EncryptedTimeField(EncryptSymmetricMixin, models.TimeField):
     encrypt_query = SYM_ENCRYPT_SQL_WITH_NULLIF
     cast = TIME
+
+class EncryptedDecimalField(EncryptSymmetricMixin, models.DecimalField):
+    cast = NUMERIC
