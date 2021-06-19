@@ -4,6 +4,8 @@ from sage_encrypt.mixins.sql import DecryptedCol
 
 from django.utils.functional import cached_property
 
+from sage_encrypt.services.setting import get_setting
+
 
 class Encrypt:
     """
@@ -64,3 +66,17 @@ class Encrypt:
             self.model._meta.db_table,
             self
         )
+
+class EncryptSymmetricMixin(Encrypt):
+    """
+    pgcrypto symmetric key encrypted field mixin
+    """
+    encrypt_query = SYM_ENCRYPT_SQL
+    decrypt_query = SYM_DECRYPT_SQL
+    cast = TEXT
+
+    def get_placeholder(self, value, compiler, connection):
+        return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
+
+    def get_decrypt_sql(self, connection):
+        return self.decrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
