@@ -119,5 +119,7 @@ Dockerfile
 
 jwt-key
 jwt-key.pub
+private.key
+public.key
 
 .docker
