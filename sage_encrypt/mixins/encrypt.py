@@ -92,7 +92,7 @@ class EncryptAsymmetricMixin(Encrypt):
     """
     encrypt_query = ASYM_ENCRYPT_SQL
     decrypt_query = ASYM_DECRYPT_SQL
-    cast_type = TEXT
+    cast = TEXT
 
     def get_placeholder(self, value=None, compiler=None, connection=None):
         return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_PUBLIC_KEY'))
