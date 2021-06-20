@@ -25,31 +25,45 @@ class Encrypt:
 
     def db_type(self, connection=None):
         """
-        value stored in the database is hexadecimal
+        value stored in database is hexadecimal
+        :param connection: connection object
+        :type connection: object
+        :return: db type
+        :rtype: str
         """
         return 'bytea'
 
     def get_placeholder(self, value, compiler, connection):
         """
         tell postgres to encrypt this field using pgcrypto
+        :return: encrypt sql query
+        :rtype: str
         """
         raise NotImplementedError('The `get_placeholder` needs to be implemented.')
 
     def get_cast_sql(self):
         """
         this may be overridden by some implementations
+        :return: cast type
+        :rtype: str
         """
         return self.cast
 
     def get_decrypt_sql(self, connection):
         """
         get decrypt sql query
+        :param connection: connection object
+        :type connection: object
+        :return: decrypt sql query
+        :rtype: str
         """
         raise NotImplementedError('The `get_decrypt_sql` needs to be implemented.')
 
     def get_col(self, alias, output_field=None):
         """
         get the decryption for col
+        :return: db col
+        :rtype: DecryptedCol
         """
         if output_field is None:
             output_field = self
@@ -81,9 +95,21 @@ class EncryptSymmetricMixin(Encrypt):
     cast = TEXT
 
     def get_placeholder(self, value, compiler, connection):
+        """
+        set encrypt key
+        :return: encrypt sql query
+        :rtype: str
+        """
         return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
 
     def get_decrypt_sql(self, connection):
+        """
+        set decrypt key
+        :param connection: connection object
+        :type connection: object
+        :return: decrypt sql query
+        :rtype: str
+        """
         return self.decrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
 
 class EncryptAsymmetricMixin(Encrypt):
@@ -95,7 +121,19 @@ class EncryptAsymmetricMixin(Encrypt):
     cast = TEXT
 
     def get_placeholder(self, value=None, compiler=None, connection=None):
+        """
+        set encrypt key
+        :return: encrypt sql query
+        :rtype: str
+        """
         return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_PUBLIC_KEY'))
 
     def get_decrypt_sql(self, connection):
+        """
+        set decrypt key
+        :param connection: connection object
+        :type connection: object
+        :return: decrypt sql query
+        :rtype: str
+        """
         return self.decrypt_query.format(get_setting(connection, 'ENCRYPT_PRIVATE_KEY'))
