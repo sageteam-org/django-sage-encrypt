@@ -2,6 +2,7 @@ import logging
 
 from django.db import models
 
+from sage_encrypt.collections.asymmetric import ASYMMETRIC_FIELDS
 from sage_encrypt.collections.symmetric import SYMMETRIC_FIELDS
 
 
@@ -15,7 +16,7 @@ def get_encrypted_field(base_class, algorithm='symmetric'):
 
     encrypt_fields = {
         'symmetric': SYMMETRIC_FIELDS,
-        'asymmetric': None
+        'asymmetric': ASYMMETRIC_FIELDS
     }
 
     assert isinstance(base_class, models.Field)
