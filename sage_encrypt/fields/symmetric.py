@@ -53,3 +53,9 @@ class EncryptedTimeField(EncryptSymmetricMixin, models.TimeField):
 
 class EncryptedDecimalField(EncryptSymmetricMixin, models.DecimalField):
     cast = NUMERIC
+
+    def get_cast_sql(self):
+        return self.cast % {
+            'max_digits': self.max_digits,
+            'decimal_places': self.decimal_places
+        }

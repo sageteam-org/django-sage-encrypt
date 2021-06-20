@@ -1,6 +1,3 @@
-DIGEST_SQL = "digest(%s, 'sha512')"
-HMAC_SQL = "hmac(%s, '{}', 'sha512')"
-
 ASYM_ENCRYPT_SQL_WITH_NULLIF = "pgp_pub_encrypt(nullif(%s, NULL)::text, dearmor('{}'))"
 SYM_ENCRYPT_SQL_WITH_NULLIF = "pgp_sym_encrypt(nullif(%s, NULL)::text, '{}')"
 
