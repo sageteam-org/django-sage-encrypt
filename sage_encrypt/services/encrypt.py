@@ -25,7 +25,8 @@ def get_encrypted_field(base_class, algorithm='symmetric'):
 
     if encrypted_field:
         if name:
-            return type(name, (encrypted_field,), kwargs)  # TODO: not tested yet
+            base_class.__class__ = encrypted_field
+            return base_class
         else:
             return encrypted_field(*args, **kwargs)
     else:
