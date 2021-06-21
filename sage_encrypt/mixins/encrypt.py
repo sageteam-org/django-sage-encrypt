@@ -8,6 +8,7 @@ from sage_encrypt.mixins.query import (
 from sage_encrypt.mixins.sql import DecryptedCol
 
 from django.utils.functional import cached_property
+from django.db.models import Model
 
 from sage_encrypt.services.setting import get_setting
 
@@ -112,6 +113,14 @@ class EncryptSymmetricMixin(Encrypt):
         """
         return self.decrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
 
+    def get_internal_type(self):
+        """
+        may be overridden by some implementations
+        :return: field type
+        :rtype: str
+        """
+        return 'BinaryField'
+
 class EncryptAsymmetricMixin(Encrypt):
     """
     pgcrypto asymmetric key encrypted field mixin
@@ -137,3 +146,11 @@ class EncryptAsymmetricMixin(Encrypt):
         :rtype: str
         """
         return self.decrypt_query.format(get_setting(connection, 'ENCRYPT_PRIVATE_KEY'))
+
+    def get_internal_type(self):
+        """
+        may be overridden by some implementations
+        :return: field type
+        :rtype: str
+        """
+        return 'BinaryField'
