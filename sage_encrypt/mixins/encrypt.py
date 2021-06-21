@@ -8,7 +8,6 @@ from sage_encrypt.mixins.query import (
 from sage_encrypt.mixins.sql import DecryptedCol
 
 from django.utils.functional import cached_property
-from django.db.models import Model
 
 from sage_encrypt.services.setting import get_setting
 
