@@ -12,9 +12,27 @@ class Command(BaseCommand):
         """
         add arguments for command
         """
-        parser.add_argument('-d', '--database', type=str, help='database')
-        parser.add_argument('-t', '--table', type=str, help='database table')
-        parser.add_argument('-c', '--column', type=str, help='table column')
+        parser.add_argument(
+            '-d',
+            '--database',
+            type=str,
+            help='database',
+            required=False
+        )
+        parser.add_argument(
+            '-t',
+            '--table',
+            type=str,
+            help='database table',
+            required=True
+        )
+        parser.add_argument(
+            '-c',
+            '--column',
+            type=str,
+            help='table column',
+            required=True
+        )
 
     def create_sym_query(self, table_name, column_name):
         """
@@ -75,18 +93,18 @@ class Command(BaseCommand):
             with connections[db_name].cursor() as cursor:
                 try:
                     cursor.execute(sym_sql_query)
-                    message = 'symmetric decryption applied.'
+                    message = f'Decryption applied.\nTable -> {table_name}\nColumn -> {col_name}\nAlgorithm -> symmetric'
                 except InternalError:
                     cursor.execute(asym_sql_query)
-                    message = 'asymmetric decryption applied.'
+                    message = f'Decryption applied.\nTable -> {table_name}\nColumn -> {col_name}\nAlgorithm -> asymmetric'
         else:
             with connection.cursor() as cursor:
                 try:
                     cursor.execute(sym_sql_query)
-                    message = 'symmetric decryption applied.'
+                    message = f'Decryption applied.\nTable -> {table_name}\nColumn -> {col_name}\nAlgorithm -> symmetric'
                 except InternalError:
                     cursor.execute(asym_sql_query)
-                    message = 'asymmetric decryption applied.'
+                    message = f'Decryption applied.\nTable -> {table_name}\nColumn -> {col_name}\nAlgorithm -> asymmetric'
 
         self.stdout.write(
             self.style.SUCCESS(message)
