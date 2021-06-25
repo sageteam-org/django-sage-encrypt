@@ -1,13 +1,14 @@
 from django.db.models.expressions import Col
+from django.db.models.sql.compiler import SQLInsertCompiler
+from django.db.backends.postgresql.base import DatabaseWrapper
 
 
 class DecryptedCol(Col):
     def __init__(self, alias, target, output_field=None):
         self.target = target
-
         super(DecryptedCol, self).__init__(alias, target, output_field)
 
-    def as_sql(self, compiler, connection):
+    def as_sql(self, compiler: SQLInsertCompiler, connection: DatabaseWrapper):
         """
         create SQL query with PostgreSQL decryption and casting
         """

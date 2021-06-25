@@ -40,7 +40,7 @@ class Command(BaseCommand):
             required=True
         )
 
-    def create_sym_query(self, table_name, column_name):
+    def create_sym_query(self, table_name: str, column_name: str):
         """
         create symmetric encrypt & replace sql query
         :param table_name: target table name
@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
         return query
 
-    def create_asym_query(self, table_name, column_name):
+    def create_asym_query(self, table_name: str, column_name: str):
         """
         create asymmetric encrypt & replace sql query
         :param table_name: target table name

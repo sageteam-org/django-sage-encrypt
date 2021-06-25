@@ -6,7 +6,7 @@ from sage_encrypt.collections.asymmetric import ASYMMETRIC_FIELDS
 from sage_encrypt.collections.symmetric import SYMMETRIC_FIELDS
 
 
-def get_encrypted_field(base_class, algorithm='symmetric'):
+def get_encrypted_field(base_class: models.Field, algorithm='symmetric'):
     """
     get encrypted field for given django field
     :type base_class: models.Field(*args, **kwargs)
@@ -36,7 +36,7 @@ def get_encrypted_field(base_class, algorithm='symmetric'):
         return base_class
 
 
-def encrypt_field(base_field, algorithm='symmetric'):
+def encrypt_field(base_field: models.Field, algorithm='symmetric'):
     """
     create EncryptedField for given Field
     :type base_field: models.Field(*args, **kwargs)
