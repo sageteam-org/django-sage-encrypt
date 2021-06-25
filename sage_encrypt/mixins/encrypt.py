@@ -8,6 +8,8 @@ from sage_encrypt.mixins.query import (
 from sage_encrypt.mixins.sql import DecryptedCol
 
 from django.utils.functional import cached_property
+from django.db.models.sql.compiler import SQLInsertCompiler
+from django.db.backends.postgresql.base import DatabaseWrapper
 
 from sage_encrypt.services.setting import get_setting
 
@@ -23,17 +25,17 @@ class Encrypt:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def db_type(self, connection=None):
+    def db_type(self, connection: DatabaseWrapper):
         """
         value stored in database is hexadecimal
         :param connection: connection object
-        :type connection: object
+        :type connection: DatabaseWrapper
         :return: db type
         :rtype: str
         """
         return 'bytea'
 
-    def get_placeholder(self, value, compiler, connection):
+    def get_placeholder(self, value, compiler: SQLInsertCompiler, connection: DatabaseWrapper):
         """
         tell postgres to encrypt this field using pgcrypto
         :return: encrypt sql query
@@ -49,15 +51,23 @@ class Encrypt:
         """
         return self.cast
 
-    def get_decrypt_sql(self, connection):
+    def get_decrypt_sql(self, connection: DatabaseWrapper):
         """
         get decrypt sql query
         :param connection: connection object
-        :type connection: object
+        :type connection: DatabaseWrapper
         :return: decrypt sql query
         :rtype: str
         """
         raise NotImplementedError('The `get_decrypt_sql` needs to be implemented.')
+
+    def get_internal_type(self):
+        """
+        may be overridden by some implementations
+        :return: field type
+        :rtype: str
+        """
+        raise NotImplementedError('The `get_internal_type` needs to be implemented.')
 
     def get_col(self, alias, output_field=None):
         """
@@ -94,7 +104,7 @@ class EncryptSymmetricMixin(Encrypt):
     decrypt_query = SYM_DECRYPT_SQL
     cast = TEXT
 
-    def get_placeholder(self, value, compiler, connection):
+    def get_placeholder(self, value, compiler: SQLInsertCompiler, connection: DatabaseWrapper):
         """
         set encrypt key
         :return: encrypt sql query
@@ -102,11 +112,11 @@ class EncryptSymmetricMixin(Encrypt):
         """
         return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_KEY'))
 
-    def get_decrypt_sql(self, connection):
+    def get_decrypt_sql(self, connection: DatabaseWrapper):
         """
         set decrypt key
         :param connection: connection object
-        :type connection: object
+        :type connection: DatabaseWrapper
         :return: decrypt sql query
         :rtype: str
         """
@@ -128,7 +138,7 @@ class EncryptAsymmetricMixin(Encrypt):
     decrypt_query = ASYM_DECRYPT_SQL
     cast = TEXT
 
-    def get_placeholder(self, value=None, compiler=None, connection=None):
+    def get_placeholder(self, value, compiler: SQLInsertCompiler, connection: DatabaseWrapper):
         """
         set encrypt key
         :return: encrypt sql query
@@ -136,11 +146,11 @@ class EncryptAsymmetricMixin(Encrypt):
         """
         return self.encrypt_query.format(get_setting(connection, 'ENCRYPT_PUBLIC_KEY'))
 
-    def get_decrypt_sql(self, connection):
+    def get_decrypt_sql(self, connection: DatabaseWrapper):
         """
         set decrypt key
         :param connection: connection object
-        :type connection: object
+        :type connection: DatabaseWrapper
         :return: decrypt sql query
         :rtype: str
         """
