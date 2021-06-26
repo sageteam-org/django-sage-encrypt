@@ -39,10 +39,19 @@ class Command(BaseCommand):
             help='encryption algorithm(symmetric/asymmetric)',
             required=True
         )
+        parser.add_argument(
+            '-cast',
+            '--cast',
+            type=str,
+            help='field previous cast (varchar, ...)',
+            required=True
+        )
 
-    def create_sym_query(self, table_name: str, column_name: str):
+    def create_sym_query(self, table_name: str, column_name: str, cast: str):
         """
         create symmetric encrypt & replace sql query
+        :param cast: field type in db
+        :type cast: str
         :param table_name: target table name
         :type table_name: str
         :param column_name: target column name
@@ -53,18 +62,21 @@ class Command(BaseCommand):
         ENCRYPT_KEY = get_setting(connection, 'ENCRYPT_KEY')
         query = """
                 UPDATE {table_name}
-                    SET {col_name} = pgp_sym_encrypt({col_name}::text, '{sym_key}');
+                    SET {col_name} = pgp_sym_encrypt({col_name}::{cast}, '{sym_key}');
                 """.format(
             table_name=table_name,
             col_name=column_name,
-            sym_key=ENCRYPT_KEY
+            sym_key=ENCRYPT_KEY,
+            cast=cast
         )
 
         return query
 
-    def create_asym_query(self, table_name: str, column_name: str):
+    def create_asym_query(self, table_name: str, column_name: str, cast: str):
         """
         create asymmetric encrypt & replace sql query
+        :param cast: field type in db
+        :type cast: str
         :param table_name: target table name
         :type table_name: str
         :param column_name: target column name
@@ -75,11 +87,12 @@ class Command(BaseCommand):
         ENCRYPT_PUBLIC_KEY = get_setting(connection, 'ENCRYPT_PUBLIC_KEY')
         query = """
                 UPDATE {table_name}
-                    SET {col_name} = pgp_pub_encrypt(({col_name}::text, dearmor('{asym_key}'));
+                    SET {col_name} = pgp_pub_encrypt({col_name}::{cast}, dearmor('{asym_key}'));
                 """.format(
             table_name=table_name,
             col_name=column_name,
-            asym_key=ENCRYPT_PUBLIC_KEY
+            asym_key=ENCRYPT_PUBLIC_KEY,
+            cast=cast
         )
 
         return query
@@ -92,11 +105,12 @@ class Command(BaseCommand):
         table_name = options['table']
         col_name = options['column']
         algorithm = options['algorithm']
+        cast = options['cast']
 
         if algorithm == 'symmetric':
-            sql_query = self.create_sym_query(table_name=table_name, column_name=col_name)
+            sql_query = self.create_sym_query(table_name=table_name, column_name=col_name, cast=cast)
         elif algorithm == 'asymmetric':
-            sql_query = self.create_asym_query(table_name=table_name, column_name=col_name)
+            sql_query = self.create_asym_query(table_name=table_name, column_name=col_name, cast=cast)
         else:
             raise TypeError(
                 'algorithm `{}` not defined, choices are `symmetric` and `asymmetric`'.format(algorithm)
