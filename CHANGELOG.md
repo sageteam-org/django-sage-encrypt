@@ -33,3 +33,4 @@ All notable changes to this project will be documented in this file.
 [0.3.0]: https://git.theivan.org/sageteam/encryption/-/compare/master...develop
 [0.3.1]: https://git.theivan.org/sageteam/encryption/-/compare/master...develop
 [0.4.0]: https://git.theivan.org/sageteam/encryption/-/compare/master...develop
+[0.4.1]: https://git.theivan.org/sageteam/encryption/-/compare/master...develop
