@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2021-06-26
+### Fixed
+- Fixed `cast` in `encryptdb` command
+
 ## [0.4.0] - 2021-06-23
 ### Added
 - Added `encryptdb` and `decryptdb` commands
