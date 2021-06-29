@@ -51,36 +51,39 @@ Fields
 
 For encrypting each row of your database there are multiple ways:
 
-1. use ``encrypt_field`` function in your models.py \`\`\`python from
-   django.db import models from sage\_encrypt.services.encrypt import
-   encrypt\_field
+1. use ``encrypt_field`` function in your models.py
 
-symmetric encryption
-====================
+.. code:: python
 
-title = encrypt\_field(models.CharField(max\_length=255))
+    from django.db import models
+    from sage_encrypt.services.encrypt import encrypt_field
 
-asymmetric encryption
-=====================
+    # symmetric encryption
+    title = encrypt_field(models.CharField(max_length=255))
 
-title = encrypt\_field(models.CharField(max\_length=255),
-algorithm='asymmetric') \`\`\`
+    # asymmetric encryption
+    title = encrypt_field(models.CharField(max_length=255), algorithm='asymmetric')
 
-2. use field directly \`\`\`python # symmetric encryption from
-   sage\_encrypt.fields.symmetric import EncryptedCharField
+2. use field directly
 
-title = EncryptedCharField(max\_length=255)
+.. code:: python
 
-asymmetric encryption
-=====================
+    # symmetric encryption
+    from sage_encrypt.fields.symmetric import EncryptedCharField
 
-from sage\_encrypt.fields.asymmetric import EncryptedCharField
+    title = EncryptedCharField(max_length=255)
 
-title = EncryptedCharField(max\_length=255) \`\`\`
+
+    # asymmetric encryption
+    from sage_encrypt.fields.asymmetric import EncryptedCharField
+
+    title = EncryptedCharField(max_length=255)
 
 If you want to use ``symmetric encryption`` you don't need to generate
-secret keys default is SECRET\_KEY But if you want to use
-``asymmetric encryption`` you have to generate private key & public key
+secret keys default is SECRET\_KEY
+
+But if you want to use ``asymmetric encryption`` you have to generate
+private key & public key
 
 Generate secret key
 -------------------
@@ -122,16 +125,17 @@ sage\_encrypt provides 2 management commands:
 
 1. ``encryptdb``
 
-   .. code:: shell
+.. code:: shell
 
-       python manage.py encryptdb --table <table_name> --column <col_name> --cast <field_previous_cast_type> --algorithm <algorithm> #(symmetric/asymmetric) 
+    python manage.py encryptdb --table <table_name> --column <col_name> --cast <field_previous_cast_type> --algorithm <algorithm> #(symmetric/asymmetric) 
 
-   Options:
-2. --database (if you have multiple db's specify for your database)
-3. --table (table name in your database not django model title)
-4. --column (col name in the specified table)
-5. --algorithm (symmetric/asymmetric)
-6. --cast (field previous cast that you want to encrypt from that)
+Options:
+
+1. --database (if you have multiple db's specify for your database)
+2. --table (table name in your database not django model title)
+3. --column (col name in the specified table)
+4. --algorithm (symmetric/asymmetric)
+5. --cast (field previous cast that you want to encrypt from that)
 
 Usage:
 
@@ -140,14 +144,15 @@ you db, you can encrypt the data to be compatible with Encrypted Field.
 
 2. ``decryptdb``
 
-   .. code:: shell
+.. code:: shell
 
-       python manage.py decryptdb --table <table_name> --column <col_name>
+    python manage.py decryptdb --table <table_name> --column <col_name>
 
-   Options:
-3. --database (if you have multiple db's specify for your database)
-4. --table (table name in your database not django model title)
-5. --column (col name in the specified table)
+Options:
+
+1. --database (if you have multiple db's specify for your database)
+2. --table (table name in your database not django model title)
+3. --column (col name in the specified table)
 
 Usage:
 

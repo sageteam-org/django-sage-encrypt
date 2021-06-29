@@ -43,6 +43,7 @@ CREATE EXTENSION pgcrypto;
 For encrypting each row of your database there are multiple ways:
 
 1. use `encrypt_field` function in your models.py
+
 ```python
 from django.db import models
 from sage_encrypt.services.encrypt import encrypt_field
@@ -55,6 +56,7 @@ title = encrypt_field(models.CharField(max_length=255), algorithm='asymmetric')
 ```
 
 2. use field directly
+
 ```python
 # symmetric encryption
 from sage_encrypt.fields.symmetric import EncryptedCharField
@@ -69,9 +71,11 @@ title = EncryptedCharField(max_length=255)
 ```
 
 If you want to use `symmetric encryption` you don't need to generate secret keys default is SECRET_KEY
+
 But if you want to use `asymmetric encryption` you have to generate private key & public key
 
 ## Generate secret key
+
 ```shell
 # generate private & public key
 gpg --gen-key # in password section do not enter password
@@ -88,6 +92,7 @@ gpg -a --export-secret-keys <test_token_generated> > private.key
 ```
 
 ## Settings
+
 Here are the parameters that you can set from setting:
 
 | Parameter                     | Description                                                                      |
@@ -97,13 +102,17 @@ Here are the parameters that you can set from setting:
 | ENCRYPT_PUBLIC_KEY            | Private key for asymmetric encryption. default: None                             |
 
 ## Management Commands
+
 sage_encrypt provides 2 management commands:
 
 1. `encryptdb`
+
 ```shell
 python manage.py encryptdb --table <table_name> --column <col_name> --cast <field_previous_cast_type> --algorithm <algorithm> #(symmetric/asymmetric) 
 ```
+
 Options:
+
  1. --database (if you have multiple db's specify for your database)
  2. --table (table name in your database not django model title)
  3. --column (col name in the specified table)
@@ -115,10 +124,13 @@ Usage:
  When you want to add encryption on a row and there is valuable data in you db, you can encrypt the data to be compatible with Encrypted Field.
 
 2. `decryptdb`
+
 ```shell
 python manage.py decryptdb --table <table_name> --column <col_name>
 ```
+
 Options:
+
  1. --database (if you have multiple db's specify for your database)
  2. --table (table name in your database not django model title)
  3. --column (col name in the specified table)
