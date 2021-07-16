@@ -139,10 +139,10 @@ Options:
 
 Usage:
 
- When your data is encrypted in db and you want to remove encryption from a row, for getting back data you can use this command, it decrypts data and replaces in your db.
+ When your data is encrypted in db, and you want to remove encryption from a row, for getting back data you can use this command, it decrypts data and replaces in your db.
 
 ## Team
-| [<img src="https://github.com/sageteam-org/django-sage-painless/blob/develop/docs/images/sepehr.jpeg?raw=true" width="230px" height="230px">](https://github.com/sepehr-akbarzadeh) | [<img src="https://github.com/sageteam-org/django-sage-painless/blob/develop/docs/images/mehran.png?raw=true" width="225px" height="340px">](https://github.com/mrhnz) |
+| [<img src="https://github.com/sageteam-org/django-sage-painless/blob/develop/docs/images/sepehr.jpeg?raw=true" width="230px" height="230px" alt="Sepehr Akbarzadeh">](https://github.com/sepehr-akbarzadeh) | [<img src="https://github.com/sageteam-org/django-sage-painless/blob/develop/docs/images/mehran.png?raw=true" width="225px" height="340px" alt="Mehran Rahmanzadeh">](https://github.com/mrhnz) |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Sepehr Akbarazadeh](https://github.com/sepehr-akbarzadeh)                                                                                                             | [Mehran Rahmanzadeh](https://github.com/mrhnz)  
 
