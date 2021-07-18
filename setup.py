@@ -1,9 +1,9 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='django-sage-encrypt',
     packages=['sage_encrypt'],
-    version='0.4.2',
+    version='0.4.3',
     license='GNU',
     description='encrypt PostgreSQL database',
     author='Sage Team',

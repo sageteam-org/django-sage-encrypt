@@ -6,29 +6,33 @@
 Welcome to django-sage-encrypt's documentation!
 ===============================================
 
+.. |br| raw:: html
+
+   <br />
+
 .. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_sage.png?raw=true
    :target: https://sageteam.org/
    :alt: SageTeam
 
-.. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_pypi_0.4.2.png?raw=true
+|br|
+
+.. image:: https://img.shields.io/pypi/v/django-sage-encrypt
    :target: https://pypi.org/project/django-sage-encrypt/
    :alt: PyPI release
 
-.. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_python-01.png?raw=true
+.. image:: https://img.shields.io/pypi/pyversions/django-sage-encrypt
    :target: https://pypi.org/project/django-sage-encrypt/
    :alt: Supported Python versions
 
-.. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_django.png?raw=true
+.. image:: https://img.shields.io/pypi/djversions/django-sage-encrypt
    :target: https://pypi.org/project/django-sage-encrypt/
    :alt: Supported Django versions
 
-.. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_docs.png?raw=true
+.. image:: https://img.shields.io/readthedocs/django-sage-encrypt
    :target: https://django-sage-encrypt.readthedocs.io/
    :alt: Documentation
 
-.. image:: https://github.com/sageteam-org/django-sage-encrypt/blob/develop/docs/images/tag_test.png?raw=true
-   :target: https://github.com/sageteam-org/django-sage-encrypt
-   :alt: Test
+|br|
 
 This app supports the following combinations of Django and Python:
 
