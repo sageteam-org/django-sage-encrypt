@@ -13,5 +13,6 @@ setup(
     keywords=['django', 'python', 'encrypt', 'PostgreSQL', 'postgres'],
     install_requires=[
         'Django',
+        'psycopg2-binary'
     ]
 )
