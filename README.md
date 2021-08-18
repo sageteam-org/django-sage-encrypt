@@ -1,5 +1,10 @@
 # Django Sage Encrypt
-#### django-sage-encrypt is a package based on Django Web Framework & PostgreSQL for database at rest encryption.
+
+The django-sage-encrypt is a package based on Django Web Framework & PostgreSQL for the database at rest encryption. Consider that a company can spend hundreds of thousands of dollars on firewalls, intrusion detection systems and encryption, and other security technologies still if an attacker can call one trusted person within the company. That person complies, and if the attacker gets in, then all that money spent on technology is essentially wasted (Kevin Mitnick).
+
+Data encryption essentially translates data into a secret code so that only people with access to a decryption key or specific password can read it. Encrypted data is called ciphertext, and unencrypted data is called plaintext. Currently, encryption is one of the most common data security methods that organizations use — and for a good reason. Encryption is a crucial step in cybersecurity because it allows organizations and individuals to protect sensitive information and resources.
+
+You can easily encrypt your data in the database using the introduced Django package (django-sage-encrypt). Also, the encryption model is done in such a way that you can efficiently perform search and filtering operations. As you know, this process can be cumbersome and expensive. But because the encryption operation in this package takes place at the SQL level, you do not pay much for data processing.
 
 ##### The Latest version of [django-sage-encrypt](https://django-sage-encrypt.readthedocs.io/) documentation
 
